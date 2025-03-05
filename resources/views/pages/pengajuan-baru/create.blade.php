@@ -18,14 +18,6 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary mx-2 mb-2">
-                    Buat Pengajuan
-                 </button>
-                 <button type="button" class="btn btn-primary mx-2 mb-2" data-toggle="modal" data-target="#importModal">
-                     Import
-                  </button>
-            </div>
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Buat Pengajuan Baru</h4>
@@ -36,7 +28,12 @@
                         <div class="row text-dark">
                             <div class="col-6">
                                 <label for="">Cabang</label>
-                                <input type="text" name="cabang" class="form-control">
+                                <select name="cabang" class="form-control select-cabang text-dark">
+                                    <option value="">--Pilih Salah Satu--</option>
+                                    @foreach ($cabangs as $item)
+                                        <option value="{{$item->nama_cabang}}">{{$item->nama_cabang}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label for="">Unit</label>
@@ -68,20 +65,15 @@
                             </div>
                             <div class="col-6">
                                 <label for="">Keterangan Stok Mesin</label>
-                                <input type="text" name="keterangan_stok_meisn" class="form-control">
+                                <select name="keterangan_stok_mesin" class="form-control" >
+                                    <option value="">--Pilih Salah Satu--</option>
+                                    <option value="Stok Branch Office">Stok Branch Office</option>
+                                    <option value="Stok Regional Office">Stok Regional Office</option>
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label for="">Merk Simcard</label>
                                 <input type="text" name="merk_simcard" class="form-control">
-                            </div>
-                            <div class="col-6">
-                                <label for="">Tanggal</label>
-                                {{-- <input type="date" name="tanggal" class="form-control"> --}}
-                                <input name="datepicker" class="datepicker-default form-control" id="datepicker">
-                            </div>
-                            <div class="col-6">
-                                <label for="">PIC</label>
-                                <input type="text" name="pic" class="form-control">
                             </div>
                             <div class="col-6">
                                 <label for="">Keterangan</label>
@@ -99,4 +91,9 @@
 </div>
 @endsection
 @push('add-script')
+<script>
+    $(document).ready(function() {
+        $('.select-cabang').select2();
+    });
+</script>
 @endpush

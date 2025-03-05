@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>EDC APP Jakarta 3 </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/admin/images/favicon.png">
@@ -20,6 +21,8 @@
     <script src="/admin/js/plugins-init/pickadate-init.js"></script>
     <link rel="stylesheet" href="/admin/vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="/admin/vendor/pickadate/themes/default.date.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -156,10 +159,15 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="./page-login.html" class="dropdown-item">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
+                                        {{ __('Logout') }}
                                     </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         </ul>
@@ -355,14 +363,21 @@
     <script src="/admin/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
     <script src="/admin/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="/admin/js/dashboard/dashboard-1.js"></script>
-    {{-- <script src="/admin/vendor/datatables/js/jquery.dataTables.min.js"></script> --}}
     <script src="/admin/js/plugins-init/datatables.init.js"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @include('sweetalert::alert')
     @stack('add-script')
-
+    <script>
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            timeOut: "3000"
+        };
+    </script>
 </body>
-
 </html>
